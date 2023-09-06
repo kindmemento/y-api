@@ -66,7 +66,7 @@ func LoginUser(c *gin.Context) {
 	}
 
 	var user models.User
-	if err := db.Where("username = ?", loginData.Username).First(&user).Error; err != nil {
+	if err := db.Where("username = ? OR email = ?", loginData.Username, loginData.Email).First(&user).Error; err != nil {
 		c.JSON(http.StatusUnauthorized, gin.H{"error": "Invalid credentials"})
 		return
 	}
