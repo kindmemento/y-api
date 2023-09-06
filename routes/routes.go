@@ -12,9 +12,9 @@ func SetupRouter() *gin.Engine {
 	userRoutes := r.Group("/")
 	{
 		userRoutes.POST("/register", controllers.RegisterUser)
+		userRoutes.POST("/login", controllers.LoginUser)
 
 		// NOT IMPLEMENTED
-		// userRoutes.POST("/login", controllers.LoginUser)
 		// userRoutes.POST("/logout", controllers.LogoutUser)
 	}
 
