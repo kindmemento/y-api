@@ -24,10 +24,10 @@ type RegistrationInput struct {
 
 type User struct {
 	gorm.Model
-	Username     string         `gorm:"type:varchar(55);unique;not null"`
+	Username     string         `gorm:"type:varchar(55);unique;not null" validate:"required"`
 	FirstName    string         `gorm:"type:varchar(55);not null"`
 	LastName     string         `gorm:"type:varchar(55);not null"`
-	Email        string         `gorm:"type:varchar(100);unique;not null"`
+	Email        string         `gorm:"type:varchar(100);unique;not null" validate:"required,email"`
 	PasswordHash string         `gorm:"type:varchar(255);not null"`
 	AccountType  string         `gorm:"type:varchar(100);not null"`
 	CreatedAt    time.Time      `gorm:"column:created_at"`
