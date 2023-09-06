@@ -6,12 +6,20 @@ import (
 	"gorm.io/gorm"
 )
 
+type AccountType string
+
+const (
+	PersonalAccount AccountType = "personal"
+	TeamAccount     AccountType = "team"
+)
+
 type RegistrationInput struct {
-	Username  string `json:"username"`
-	FirstName string `json:"first_name"`
-	LastName  string `json:"last_name"`
-	Email     string `json:"email"`
-	Password  string `json:"password"`
+	Username    string      `json:"username"`
+	FirstName   string      `json:"first_name"`
+	LastName    string      `json:"last_name"`
+	Email       string      `json:"email"`
+	Password    string      `json:"password"`
+	AccountType AccountType `json:"account_type"`
 }
 
 type User struct {
@@ -21,6 +29,7 @@ type User struct {
 	LastName     string         `gorm:"type:varchar(55);not null"`
 	Email        string         `gorm:"type:varchar(100);unique;not null"`
 	PasswordHash string         `gorm:"type:varchar(255);not null"`
+	AccountType  string         `gorm:"type:varchar(100);not null"`
 	CreatedAt    time.Time      `gorm:"column:created_at"`
 	UpdatedAt    time.Time      `gorm:"column:updated_at"`
 	DeletedAt    gorm.DeletedAt `gorm:"index"`
