@@ -22,6 +22,11 @@ type RegistrationInput struct {
 	AccountType AccountType `json:"account_type"`
 }
 
+type LoginInput struct {
+	Username string `json:"username"`
+	Password string `json:"password"`
+}
+
 type User struct {
 	gorm.Model
 	Username     string         `gorm:"type:varchar(55);unique;not null" validate:"required"`
