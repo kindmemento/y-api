@@ -17,6 +17,11 @@ func RegisterUser(c *gin.Context) {
 		return
 	}
 
+	if input.AccountType != models.PersonalAccount && input.AccountType != models.TeamAccount {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid account type"})
+		return
+	}
+
 	hashedPassword, err := utils.HashPassword(input.Password)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to hash password"})
@@ -29,6 +34,7 @@ func RegisterUser(c *gin.Context) {
 		LastName:     input.LastName,
 		Email:        input.Email,
 		PasswordHash: hashedPassword,
+		AccountType:  string(input.AccountType),
 	}
 
 	db, err := utils.ConnectToDB()
