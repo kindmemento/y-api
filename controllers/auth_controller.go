@@ -44,6 +44,7 @@ func RegisterUser(c *gin.Context) {
 	}
 
 	if err := db.Create(&newUser).Error; err != nil {
+		// TODO: Return duplication error for username/email later.
 		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to create user"})
 		return
 	}
