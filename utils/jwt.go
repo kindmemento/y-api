@@ -9,13 +9,14 @@ import (
 
 var jwtSecret = []byte(os.Getenv("JWT_SECRET"))
 
-func GenerateJWT(username string, firstName string, lastName string, email string) (string, error) {
+func GenerateJWT(username string, firstName string, lastName string, email string, accountType string) (string, error) {
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, jwt.MapClaims{
-		"username":   username,
-		"first_name": firstName,
-		"last_name":  lastName,
-		"email":      email,
-		"exp":        time.Now().Add(time.Hour * 24).Unix(),
+		"username":     username,
+		"first_name":   firstName,
+		"last_name":    lastName,
+		"email":        email,
+		"account_type": accountType,
+		"exp":          time.Now().Add(time.Hour * 24).Unix(),
 	})
 
 	tokenString, err := token.SignedString([]byte(jwtSecret))
